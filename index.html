@@ -1,0 +1,797 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>인생메모 | 일정·할 일·일기·독서·여행·요리를 한 권의 노트에</title>
+  <meta name="description" content="인생메모는 일정 관리, 할 일 목록, 일기장, 독서 기록장, 여행 버킷리스트, 요리 노트를 한 권의 노트에 정리하는 무료 웹 다이어리입니다. 회원가입 없이 브라우저에 바로 저장됩니다.">
+  <meta name="keywords" content="인생메모, 온라인 다이어리, 일정관리, 스케줄러, 투두리스트, 일기장, 독서기록장, 여행 버킷리스트, 요리노트, 레시피 칼로리">
+  <meta name="author" content="인생메모">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#f37021">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="canonical" href="https://lifememo.example.com/">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="인생메모">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:title" content="인생메모 — 당신의 인생을 하나의 노트에 정리해드려요">
+  <meta property="og:description" content="일정, 할 일, 일기, 독서, 여행, 요리. 흩어진 기록을 한 권의 아름다운 노트로.">
+  <meta property="og:url" content="https://lifememo.example.com/">
+  <meta property="og:image" content="https://lifememo.example.com/assets/img/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="오렌지색 노트 위에 적힌 인생메모 로고">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="인생메모 — 당신의 인생을 하나의 노트에 정리해드려요">
+  <meta name="twitter:description" content="일정, 할 일, 일기, 독서, 여행, 요리. 흩어진 기록을 한 권의 아름다운 노트로.">
+  <meta name="twitter:image" content="https://lifememo.example.com/assets/img/og-image.png">
+
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://api.open-meteo.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;500&family=Nanum+Myeongjo&family=Gowun+Batang&family=Gowun+Dodum&family=Nanum+Pen+Script&family=Gaegu&display=swap">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/note.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://lifememo.example.com/#website",
+        "name": "인생메모",
+        "alternateName": "Life Memo",
+        "url": "https://lifememo.example.com/",
+        "description": "당신의 인생을 하나의 노트에 정리해드려요.",
+        "inLanguage": "ko-KR"
+      },
+      {
+        "@type": "WebApplication",
+        "name": "인생메모",
+        "url": "https://lifememo.example.com/",
+        "applicationCategory": "LifestyleApplication",
+        "operatingSystem": "Any (웹 브라우저)",
+        "browserRequirements": "JavaScript와 localStorage를 지원하는 최신 브라우저",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+        "featureList": ["일정 관리 및 날씨 예보", "할 일 목록", "글꼴을 고를 수 있는 일기장", "별점과 한줄평 독서 기록장", "세계 지도 여행 버킷리스트", "칼로리·영양소 자동 계산 요리 노트"],
+        "inLanguage": "ko-KR"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "인생메모에 기록한 내용은 어디에 저장되나요?",
+            "acceptedAnswer": { "@type": "Answer", "text": "모든 기록은 지금 사용하는 브라우저의 로컬스토리지에만 저장됩니다. 서버로 전송되지 않으며 회원가입도 필요 없습니다." }
+          },
+          {
+            "@type": "Question",
+            "name": "다른 기기로 기록을 옮길 수 있나요?",
+            "acceptedAnswer": { "@type": "Answer", "text": "페이지 하단의 '백업 내보내기'로 JSON 파일을 받은 뒤, 다른 기기에서 '백업 가져오기'로 불러오면 됩니다." }
+          },
+          {
+            "@type": "Question",
+            "name": "요리 노트의 칼로리는 어떻게 계산되나요?",
+            "acceptedAnswer": { "@type": "Answer", "text": "재료와 용량을 고르면 식약처 식품영양성분 DB와 USDA 자료를 참고한 100g당 영양 정보를 바탕으로 열량, 탄수화물, 단백질, 지방, 나트륨을 자동으로 계산합니다." }
+          },
+          {
+            "@type": "Question",
+            "name": "일정에 날씨는 어떻게 표시되나요?",
+            "acceptedAnswer": { "@type": "Answer", "text": "일정에 장소를 검색하거나 현재 위치를 등록하면 Open-Meteo 예보를 이용해 최대 16일 뒤까지 그날의 날씨와 기온을 보여드립니다." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+
+  <!-- Icon sprite -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="1"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-checklist" viewBox="0 0 24 24"><path d="m4 7 2 2 3.5-3.5M4 15.5l2 2 3.5-3.5M13 8h7M13 16.5h7"/></symbol>
+    <symbol id="i-journal" viewBox="0 0 24 24"><path d="M6 3.5h11.5a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6A1.5 1.5 0 0 1 4.5 19V5A1.5 1.5 0 0 1 6 3.5z"/><path d="M8.5 3.5v17M11.5 8h4M11.5 11h4"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6.5C10 5 7 4.5 3.5 5v13.5c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5z"/><path d="M12 6.5V20"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.5 3.5 5.5 3.5 8.5s-1 6-3.5 8.5c-2.5-2.5-3.5-5.5-3.5-8.5s1-6 3.5-8.5z"/></symbol>
+    <symbol id="i-pot" viewBox="0 0 24 24"><path d="M4 10h16v6.5a3.5 3.5 0 0 1-3.5 3.5h-9A3.5 3.5 0 0 1 4 16.5z"/><path d="M2 10h2M20 10h2M9.5 7c0-1 .8-1.5.8-2.5M13.5 7c0-1 .8-1.5.8-2.5"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L18.5 9.5l-4-4L4 16z"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 7h15M9.5 7V4.5h5V7M6.5 7l1 13h9l1-13M10.5 11v5M13.5 11v5"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></symbol>
+    <symbol id="i-locate" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></symbol>
+    <symbol id="i-chev-left" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></symbol>
+    <symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m5 15 7-7 7 7"/></symbol>
+    <symbol id="i-chev-down" viewBox="0 0 24 24"><path d="m5 9 7 7 7-7"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="m12 2.8 2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.5A8 8 0 0 1 9.5 4.5a8 8 0 1 0 10 10z"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18.5h10.5a4 4 0 0 0 .3-8A6 6 0 0 0 6.3 11 3.8 3.8 0 0 0 7 18.5z"/></symbol>
+    <symbol id="i-cloud-sun" viewBox="0 0 24 24"><path d="M8.6 8.2a3.5 3.5 0 0 1 6-1.7M9 2.5V4M3.5 8H5M5 4.3l1 1"/><path d="M8 20h9.5a3.5 3.5 0 0 0 .3-7 5.2 5.2 0 0 0-9.9.6A3.2 3.2 0 0 0 8 20z"/></symbol>
+    <symbol id="i-fog" viewBox="0 0 24 24"><path d="M7 12.5h10.5a3.6 3.6 0 0 0 .3-7.2 5.5 5.5 0 0 0-10.6.6A3.3 3.3 0 0 0 7 12.5zM4 16h16M6 19.5h12"/></symbol>
+    <symbol id="i-drizzle" viewBox="0 0 24 24"><path d="M7 14.5h10.5a3.8 3.8 0 0 0 .3-7.5A5.8 5.8 0 0 0 6.6 8 3.5 3.5 0 0 0 7 14.5z"/><path d="M8.5 17.5v1M12 19v1M15.5 17.5v1"/></symbol>
+    <symbol id="i-rain" viewBox="0 0 24 24"><path d="M7 14.5h10.5a3.8 3.8 0 0 0 .3-7.5A5.8 5.8 0 0 0 6.6 8 3.5 3.5 0 0 0 7 14.5z"/><path d="m9 17-1 3.5M12.5 17l-1 3.5M16 17l-1 3.5"/></symbol>
+    <symbol id="i-snow" viewBox="0 0 24 24"><path d="M7 14.5h10.5a3.8 3.8 0 0 0 .3-7.5A5.8 5.8 0 0 0 6.6 8 3.5 3.5 0 0 0 7 14.5z"/><path d="M8.5 17.5v3M7 19h3M15.5 17.5v3M14 19h3"/></symbol>
+    <symbol id="i-storm" viewBox="0 0 24 24"><path d="M7 14.5h10.5a3.8 3.8 0 0 0 .3-7.5A5.8 5.8 0 0 0 6.6 8 3.5 3.5 0 0 0 7 14.5z"/><path d="M12.5 15.5 10.5 19h3l-2 3.5"/></symbol>
+    <symbol id="i-wind" viewBox="0 0 24 24"><path d="M3 8.5h11a2.5 2.5 0 1 0-2.5-2.5M3 12.5h15a2.5 2.5 0 1 1-2.5 2.5M3 16.5h7"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3.5 19.5a5.5 5.5 0 0 1 11 0M16 5.5a3 3 0 0 1 0 5.5M17.5 14.5a5 5 0 0 1 3 5"/></symbol>
+    <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 21a6 6 0 0 0 6-6c0-4-3-6-4-9-1 2.5-2.5 3.5-3.5 2.5C9.8 7 9.8 5.5 10.2 4 7.5 6 6 9.5 6 15a6 6 0 0 0 6 6z"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4M7 9l5-5 5 5M5 20h14"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="M3.5 6.5 9 4l6 2.5 5.5-2.5v13.5L15 20l-6-2.5-5.5 2.5zM9 4v13.5M15 6.5V20"/></symbol>
+    <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3.5h12v17l-6-4-6 4z"/></symbol>
+  </svg>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="./" aria-label="인생메모 홈">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="3" width="22" height="26" fill="#f37021"/><rect x="5" y="3" width="3.5" height="26" fill="#1c1714" opacity=".16"/><path d="M20 3v12l2.5-2.2L25 15V3z" fill="#5b3a29"/></svg>
+        <span class="brand-text"><span class="brand-name">인생메모</span><span class="brand-sub">Life Memo</span></span>
+      </a>
+      <nav class="site-nav" aria-label="주요 메뉴">
+        <ul>
+          <li><a href="./" aria-current="page"><small>Note</small>나의 노트</a></li>
+          <li><a href="discover.html"><small>Discover</small>발견</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ Hero ============ -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <div>
+          <p class="eyebrow">Life, in one note</p>
+          <h1 class="hero-title" id="hero-title">인생메모<em>.</em></h1>
+          <p class="hero-lead">당신의 인생을 하나의 노트에 정리해드려요.<br>일정과 할 일, 일기와 책, 여행과 요리까지 모두 이 한 권에.</p>
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="#notebook">노트 펼치기 <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a>
+            <a class="btn btn--ghost" href="discover.html">오늘의 발견</a>
+          </div>
+          <div class="hero-meta" aria-label="나의 기록 요약">
+            <div><strong data-stat="total">0</strong>모든 기록</div>
+            <div><strong data-stat="today">0</strong>오늘의 일정</div>
+            <div><strong data-stat="todo">0</strong>남은 할 일</div>
+          </div>
+        </div>
+        <svg class="hero-art" viewBox="0 0 400 470" role="img" aria-labelledby="hero-art-title">
+          <title id="hero-art-title">갈색 리본 책갈피가 달린 오렌지색 노트</title>
+          <ellipse cx="205" cy="440" rx="160" ry="14" fill="#1c1714" opacity=".08"/>
+          <g transform="rotate(-5 205 230)">
+            <rect x="78" y="52" width="262" height="356" fill="#efe6d8" stroke="#d8ccb9"/>
+            <path d="M330 60v340M334 64v340" stroke="#d8ccb9"/>
+          </g>
+          <rect x="62" y="40" width="268" height="362" fill="#f37021"/>
+          <rect x="62" y="40" width="20" height="362" fill="#1c1714" opacity=".12"/>
+          <path d="M82 40v362" stroke="#1c1714" stroke-opacity=".18"/>
+          <rect x="290" y="40" width="9" height="362" fill="#5b3a29"/>
+          <path d="M228 398h14v58l-7-7-7 7z" fill="#5b3a29"/>
+          <g fill="none" stroke="#1c1714" stroke-opacity=".45">
+            <rect x="112" y="92" width="156" height="200"/>
+            <rect x="118" y="98" width="144" height="188"/>
+          </g>
+          <text x="190" y="140" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="13" letter-spacing="5" fill="#1c1714" fill-opacity=".7">LIFE · MEMO</text>
+          <path d="M160 156h60" stroke="#1c1714" stroke-opacity=".45"/>
+          <text x="190" y="214" text-anchor="middle" font-family="Noto Serif KR, serif" font-size="38" font-weight="300" fill="#1c1714" fill-opacity=".82">인생메모</text>
+          <text x="190" y="262" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-size="15" fill="#1c1714" fill-opacity=".6">Vol. 01</text>
+          <g transform="rotate(-32 300 380)">
+            <rect x="196" y="374" width="200" height="11" rx="5.5" fill="#1c1714"/>
+            <rect x="350" y="374" width="10" height="11" fill="#c9a36a"/>
+            <path d="M196 379.5 176 379.5" stroke="#1c1714" stroke-width="3" stroke-linecap="round"/>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ============ Chapters ============ -->
+    <section class="section section--tint" aria-labelledby="chapters-title">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Six chapters</p>
+            <h2 id="chapters-title">한 권의 노트, 여섯 개의 챕터</h2>
+          </div>
+          <p class="desc">삶을 이루는 여섯 가지 기록을 한곳에 모았습니다. 원하는 챕터를 골라 바로 펼쳐 보세요.</p>
+        </div>
+        <ol class="chapters">
+          <li><a class="chapter" href="#agenda" data-tab="agenda">
+            <span class="chapter-num">01</span><svg class="icon" aria-hidden="true"><use href="#i-calendar"></use></svg>
+            <h3>일정 관리</h3><p>날씨 예보와 장소를 함께 담는 스케줄러</p><span class="chapter-count" data-count="schedules">0</span>
+          </a></li>
+          <li><a class="chapter" href="#todo" data-tab="todo">
+            <span class="chapter-num">02</span><svg class="icon" aria-hidden="true"><use href="#i-checklist"></use></svg>
+            <h3>할 일 목록</h3><p>우선순위와 마감일로 정리하는 투두리스트</p><span class="chapter-count" data-count="todos">0</span>
+          </a></li>
+          <li><a class="chapter" href="#journal" data-tab="journal">
+            <span class="chapter-num">03</span><svg class="icon" aria-hidden="true"><use href="#i-journal"></use></svg>
+            <h3>일기장</h3><p>날씨·장소와 나만의 글씨체로 쓰는 하루</p><span class="chapter-count" data-count="diaries">0</span>
+          </a></li>
+          <li><a class="chapter" href="#library" data-tab="library">
+            <span class="chapter-num">04</span><svg class="icon" aria-hidden="true"><use href="#i-book"></use></svg>
+            <h3>독서 기록장</h3><p>별점과 한줄평, 장르별 도서 추천</p><span class="chapter-count" data-count="books">0</span>
+          </a></li>
+          <li><a class="chapter" href="#voyage" data-tab="voyage">
+            <span class="chapter-num">05</span><svg class="icon" aria-hidden="true"><use href="#i-globe"></use></svg>
+            <h3>여행 버킷리스트</h3><p>가고 싶은 나라와 다녀온 도시를 지도에</p><span class="chapter-count" data-count="trips">0</span>
+          </a></li>
+          <li><a class="chapter" href="#cuisine" data-tab="cuisine">
+            <span class="chapter-num">06</span><svg class="icon" aria-hidden="true"><use href="#i-pot"></use></svg>
+            <h3>요리 노트</h3><p>재료 용량에 따라 칼로리·영양소 자동 계산</p><span class="chapter-count" data-count="recipes">0</span>
+          </a></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ Notebook (CRUD) ============ -->
+    <section class="notebook" id="notebook" aria-label="나의 노트">
+      <div class="tabbar">
+        <div class="container">
+          <div class="tabs" role="tablist" aria-label="노트 챕터">
+            <button role="tab" id="tab-agenda" aria-controls="agenda" aria-selected="true"><span>01</span>일정</button>
+            <button role="tab" id="tab-todo" aria-controls="todo" aria-selected="false" tabindex="-1"><span>02</span>할 일</button>
+            <button role="tab" id="tab-journal" aria-controls="journal" aria-selected="false" tabindex="-1"><span>03</span>일기</button>
+            <button role="tab" id="tab-library" aria-controls="library" aria-selected="false" tabindex="-1"><span>04</span>독서</button>
+            <button role="tab" id="tab-voyage" aria-controls="voyage" aria-selected="false" tabindex="-1"><span>05</span>여행</button>
+            <button role="tab" id="tab-cuisine" aria-controls="cuisine" aria-selected="false" tabindex="-1"><span>06</span>요리</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <!-- 01 Agenda -->
+        <section class="panel" id="agenda" role="tabpanel" aria-labelledby="tab-agenda" tabindex="0">
+          <header class="panel-head">
+            <div>
+              <p class="eyebrow">01 · Agenda</p>
+              <h2 class="panel-title">일정 관리</h2>
+              <p class="panel-desc">장소를 함께 기록하면 그날의 날씨 예보(최대 16일)를 일정 옆에 보여드려요.</p>
+            </div>
+            <button class="btn btn--primary" type="button" data-action="new-event"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg>새 일정</button>
+          </header>
+          <div class="agenda-grid">
+            <div class="calendar card">
+              <div class="cal-head">
+                <button class="icon-btn" type="button" id="cal-prev" aria-label="이전 달"><svg class="icon" aria-hidden="true"><use href="#i-chev-left"></use></svg></button>
+                <h3 id="cal-title" aria-live="polite"></h3>
+                <button class="icon-btn" type="button" id="cal-next" aria-label="다음 달"><svg class="icon" aria-hidden="true"><use href="#i-chev-right"></use></svg></button>
+              </div>
+              <div class="cal-week" aria-hidden="true"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div>
+              <div class="cal-days" id="cal-days" role="grid" aria-labelledby="cal-title"></div>
+              <div class="cal-foot"><button class="btn btn--ghost btn--sm" type="button" id="cal-today">오늘로 이동</button></div>
+            </div>
+            <div class="agenda-side">
+              <h3 class="side-title" id="agenda-day-title"></h3>
+              <ul class="event-list" id="agenda-day-list"></ul>
+              <h3 class="side-title side-title--sub">다가오는 일정</h3>
+              <ul class="event-list event-list--compact" id="agenda-upcoming"></ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 02 To-do -->
+        <section class="panel" id="todo" role="tabpanel" aria-labelledby="tab-todo" tabindex="0" hidden>
+          <header class="panel-head">
+            <div>
+              <p class="eyebrow">02 · To-do</p>
+              <h2 class="panel-title">할 일 목록</h2>
+              <p class="panel-desc">우선순위와 마감일을 정해 두면 급한 일부터 위로 올라와요. 항목을 두 번 누르면 바로 고칠 수 있어요.</p>
+            </div>
+          </header>
+          <form class="todo-add card" id="todo-form" autocomplete="off">
+            <label class="sr-only" for="todo-text">할 일</label>
+            <input class="input" id="todo-text" name="text" placeholder="오늘 해야 할 일을 적어 보세요" maxlength="120" required>
+            <label class="sr-only" for="todo-priority">우선순위</label>
+            <select class="select" id="todo-priority" name="priority">
+              <option value="1">높음</option>
+              <option value="2" selected>보통</option>
+              <option value="3">낮음</option>
+            </select>
+            <label class="sr-only" for="todo-due">마감일</label>
+            <input class="input" type="date" id="todo-due" name="due">
+            <button class="btn btn--primary" type="submit"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg>추가</button>
+          </form>
+          <div class="todo-toolbar">
+            <div class="segmented" id="todo-filter" role="group" aria-label="필터">
+              <button type="button" data-filter="all" aria-pressed="true">전체</button>
+              <button type="button" data-filter="active" aria-pressed="false">진행 중</button>
+              <button type="button" data-filter="done" aria-pressed="false">완료</button>
+            </div>
+            <div class="todo-progress" aria-live="polite">
+              <div class="bar"><span id="todo-bar"></span></div>
+              <span id="todo-count"></span>
+            </div>
+            <button class="btn btn--ghost btn--sm" type="button" id="todo-clear">완료 항목 지우기</button>
+          </div>
+          <ul class="todo-list" id="todo-list"></ul>
+        </section>
+
+        <!-- 03 Journal -->
+        <section class="panel" id="journal" role="tabpanel" aria-labelledby="tab-journal" tabindex="0" hidden>
+          <header class="panel-head">
+            <div>
+              <p class="eyebrow">03 · Journal</p>
+              <h2 class="panel-title">일기장</h2>
+              <p class="panel-desc">그날의 날씨와 머문 곳을 함께 남겨 보세요. 글씨체와 글자 크기도 하루의 기분에 맞게 고를 수 있어요.</p>
+            </div>
+            <button class="btn btn--primary" type="button" data-action="new-journal"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg>오늘의 일기</button>
+          </header>
+          <div class="toolbar">
+            <label class="search-box">
+              <svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>
+              <span class="sr-only">일기 검색</span>
+              <input class="input" type="search" id="journal-search" placeholder="제목, 내용, 장소로 찾기">
+            </label>
+          </div>
+          <div class="journal-list" id="journal-list"></div>
+        </section>
+
+        <!-- 04 Library -->
+        <section class="panel" id="library" role="tabpanel" aria-labelledby="tab-library" tabindex="0" hidden>
+          <header class="panel-head">
+            <div>
+              <p class="eyebrow">04 · Library</p>
+              <h2 class="panel-title">독서 기록장</h2>
+              <p class="panel-desc">읽은 책에 별점과 한줄평을 남기고, 장르를 고르면 추천 도서도 받아 볼 수 있어요.</p>
+            </div>
+            <button class="btn btn--primary" type="button" data-action="new-book"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg>책 기록하기</button>
+          </header>
+          <dl class="stat-row" id="library-stats"></dl>
+          <div class="toolbar">
+            <div class="segmented" id="book-status" role="group" aria-label="독서 상태">
+              <button type="button" data-status="all" aria-pressed="true">전체</button>
+              <button type="button" data-status="read" aria-pressed="false">읽은 책</button>
+              <button type="button" data-status="wish" aria-pressed="false">읽고 싶은 책</button>
+            </div>
+            <label class="sr-only" for="book-genre">장르</label>
+            <select class="select select--boxed" id="book-genre"><option value="">모든 장르</option></select>
+            <label class="sr-only" for="book-sort">정렬</label>
+            <select class="select select--boxed" id="book-sort">
+              <option value="recent">최근 읽은 순</option>
+              <option value="rating">별점 높은 순</option>
+              <option value="title">제목 순</option>
+            </select>
+            <span class="spacer"></span>
+            <a class="link-arrow" id="book-recommend-link" href="discover.html#books">장르별 추천 도서 보기 <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a>
+          </div>
+          <ul class="book-grid" id="book-list"></ul>
+        </section>
+
+        <!-- 05 Voyage -->
+        <section class="panel" id="voyage" role="tabpanel" aria-labelledby="tab-voyage" tabindex="0" hidden>
+          <header class="panel-head">
+            <div>
+              <p class="eyebrow">05 · Voyage</p>
+              <h2 class="panel-title">여행 버킷리스트</h2>
+              <p class="panel-desc">가고 싶은 나라를 우선순위와 함께 적어 두세요. 다녀온 나라와 도시는 세계 지도에서 직접 칠할 수 있어요.</p>
+            </div>
+            <div class="head-actions">
+              <a class="btn btn--ghost" href="discover.html#voyage-map"><svg class="icon" aria-hidden="true"><use href="#i-map"></use></svg>지도에서 체크하기</a>
+              <button class="btn btn--primary" type="button" data-action="new-trip"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg>버킷리스트 추가</button>
+            </div>
+          </header>
+          <dl class="stat-row" id="voyage-stats"></dl>
+          <div class="toolbar">
+            <div class="segmented" id="trip-filter" role="group" aria-label="여행 필터">
+              <button type="button" data-filter="all" aria-pressed="true">전체</button>
+              <button type="button" data-filter="todo" aria-pressed="false">가고 싶은 곳</button>
+              <button type="button" data-filter="done" aria-pressed="false">다녀온 곳</button>
+            </div>
+          </div>
+          <ul class="trip-list" id="trip-list"></ul>
+          <div class="city-box">
+            <h3 class="side-title side-title--sub">지도에서 체크한 도시</h3>
+            <ul class="chips" id="city-list"></ul>
+          </div>
+        </section>
+
+        <!-- 06 Cuisine -->
+        <section class="panel" id="cuisine" role="tabpanel" aria-labelledby="tab-cuisine" tabindex="0" hidden>
+          <header class="panel-head">
+            <div>
+              <p class="eyebrow">06 · Cuisine</p>
+              <h2 class="panel-title">요리 노트</h2>
+              <p class="panel-desc">나만의 레시피를 재료와 조리 순서로 정리하세요. 재료와 용량을 고르는 순간 칼로리와 영양소가 계산돼요.</p>
+            </div>
+            <button class="btn btn--primary" type="button" data-action="new-recipe"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg>새 레시피</button>
+          </header>
+          <div class="toolbar">
+            <label class="search-box">
+              <svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>
+              <span class="sr-only">레시피 검색</span>
+              <input class="input" type="search" id="recipe-search" placeholder="요리 이름이나 재료로 찾기">
+            </label>
+            <div class="chips" id="recipe-cat" role="group" aria-label="요리 분류"></div>
+          </div>
+          <ul class="recipe-grid" id="recipe-list"></ul>
+        </section>
+      </div>
+    </section>
+
+    <!-- ============ About (SEO 정적 콘텐츠) ============ -->
+    <section class="section" aria-labelledby="about-title">
+      <div class="container about">
+        <div>
+          <p class="eyebrow">Our philosophy</p>
+          <h2 id="about-title" class="about-title">기록은 가볍게,<br>노트는 아름답게.</h2>
+        </div>
+        <ul class="about-list">
+          <li>
+            <span class="display-num">I.</span>
+            <h3>회원가입 없이 바로</h3>
+            <p>인생메모의 모든 기록은 지금 쓰는 브라우저의 로컬스토리지에 저장됩니다. 서버로 전송되지 않아 가볍고 안전합니다.</p>
+          </li>
+          <li>
+            <span class="display-num">II.</span>
+            <h3>살아 있는 정보와 함께</h3>
+            <p>일정에는 날씨 예보가, 레시피에는 칼로리가, 여행에는 세계 지도가 더해집니다. 기록이 정보가 되는 노트입니다.</p>
+          </li>
+          <li>
+            <span class="display-num">III.</span>
+            <h3>언제든 내 손안에</h3>
+            <p>백업 파일로 내보내고 다른 기기에서 다시 불러올 수 있습니다. 나의 기록은 언제나 나의 것입니다.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section section--tint" aria-labelledby="faq-title">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Questions</p>
+            <h2 id="faq-title">자주 묻는 질문</h2>
+          </div>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>인생메모에 기록한 내용은 어디에 저장되나요?</summary>
+            <p>모든 기록은 지금 사용하는 브라우저의 로컬스토리지에만 저장됩니다. 서버로 전송되지 않으며 회원가입도 필요 없습니다.</p>
+          </details>
+          <details>
+            <summary>다른 기기로 기록을 옮길 수 있나요?</summary>
+            <p>페이지 하단의 '백업 내보내기'로 JSON 파일을 받은 뒤, 다른 기기에서 '백업 가져오기'로 불러오면 됩니다.</p>
+          </details>
+          <details>
+            <summary>요리 노트의 칼로리는 어떻게 계산되나요?</summary>
+            <p>재료와 용량을 고르면 식약처 식품영양성분 DB와 USDA 자료를 참고한 100g당 영양 정보를 바탕으로 열량, 탄수화물, 단백질, 지방, 나트륨을 자동으로 계산합니다. 참고용 근사치입니다.</p>
+          </details>
+          <details>
+            <summary>일정에 날씨는 어떻게 표시되나요?</summary>
+            <p>일정에 장소를 검색하거나 현재 위치를 등록하면 Open-Meteo 예보를 이용해 최대 16일 뒤까지 그날의 날씨와 기온을 보여드립니다.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="brand-name">인생메모</span>
+          <p>당신의 인생을 하나의 노트에 정리해드려요.</p>
+        </div>
+        <nav aria-label="바닥글 메뉴">
+          <h2>Menu</h2>
+          <ul>
+            <li><a href="./">나의 노트</a></li>
+            <li><a href="discover.html">발견 — 날씨 · 도서 추천 · 여행 지도</a></li>
+          </ul>
+        </nav>
+        <div>
+          <h2>Backup</h2>
+          <div class="chips">
+            <button class="btn btn--sm" type="button" data-backup-export><svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg>백업 내보내기</button>
+            <label class="btn btn--sm"><svg class="icon" aria-hidden="true"><use href="#i-upload"></use></svg>백업 가져오기<input type="file" accept="application/json,.json" data-backup-import hidden></label>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span data-year>2026</span> 인생메모. 모든 기록은 내 브라우저에만 저장됩니다.</span>
+        <span>날씨 Open-Meteo · 지명 BigDataCloud · 영양 정보 식약처/USDA 참고</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================== Dialogs ===================== -->
+
+  <!-- 일정 -->
+  <dialog class="modal" id="dlg-event" aria-labelledby="event-dlg-title">
+    <form id="event-form" class="modal-form" autocomplete="off" novalidate>
+      <div class="modal-head">
+        <h2 id="event-dlg-title">새 일정</h2>
+        <button class="icon-btn" type="button" data-close aria-label="닫기"><svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" name="id">
+        <div class="form-grid">
+          <label class="field span-2"><span>제목</span><input class="input" name="title" maxlength="80" required placeholder="예) 엄마 생신 저녁 식사"></label>
+          <label class="field"><span>날짜</span><input class="input" type="date" name="date" required></label>
+          <label class="field"><span>분류</span>
+            <select class="select" name="category">
+              <option value="personal">개인</option>
+              <option value="work">업무</option>
+              <option value="meet">약속</option>
+              <option value="anniv">기념일</option>
+              <option value="travel">여행</option>
+            </select>
+          </label>
+          <label class="field"><span>시작 시간</span><input class="input" type="time" name="start"></label>
+          <label class="field"><span>종료 시간</span><input class="input" type="time" name="end"></label>
+          <div class="field span-2 place-field" data-place>
+            <label class="field-label" for="event-place">장소 · 날씨 예보 위치</label>
+            <div class="input-row">
+              <input class="input" id="event-place" name="place" data-place-input placeholder="도시나 지역 이름을 검색하세요" role="combobox" aria-expanded="false" aria-controls="event-place-suggest" aria-autocomplete="list">
+              <button class="btn btn--ghost btn--sm" type="button" data-place-locate><svg class="icon" aria-hidden="true"><use href="#i-locate"></use></svg>현재 위치</button>
+            </div>
+            <ul class="suggest" id="event-place-suggest" role="listbox" data-place-suggest hidden></ul>
+            <input type="hidden" name="lat"><input type="hidden" name="lon">
+            <p class="hint" data-place-status></p>
+          </div>
+          <label class="field span-2"><span>메모</span><textarea class="textarea" name="memo" rows="3" maxlength="500" placeholder="준비물, 예약 번호 등"></textarea></label>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn--danger btn--sm" type="button" id="event-delete" hidden>삭제</button>
+        <span class="spacer"></span>
+        <button class="btn btn--ghost btn--sm" type="button" data-close>취소</button>
+        <button class="btn btn--primary btn--sm" type="submit">저장</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- 일기 쓰기 -->
+  <dialog class="modal modal--wide" id="dlg-journal" aria-labelledby="journal-dlg-title">
+    <form id="journal-form" class="modal-form" autocomplete="off" novalidate>
+      <div class="modal-head">
+        <h2 id="journal-dlg-title">오늘의 일기</h2>
+        <button class="icon-btn" type="button" data-close aria-label="닫기"><svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" name="id">
+        <div class="form-grid">
+          <label class="field"><span>날짜</span><input class="input" type="date" name="date" required></label>
+          <label class="field"><span>제목</span><input class="input" name="title" maxlength="60" placeholder="오늘을 한 줄로"></label>
+          <fieldset class="field span-2 weather-pick">
+            <legend class="field-label">날씨</legend>
+            <div class="weather-options">
+              <label><input type="radio" name="weather" value="sun" checked><span><svg class="icon" aria-hidden="true"><use href="#i-sun"></use></svg>맑음</span></label>
+              <label><input type="radio" name="weather" value="cloud-sun"><span><svg class="icon" aria-hidden="true"><use href="#i-cloud-sun"></use></svg>구름 조금</span></label>
+              <label><input type="radio" name="weather" value="cloud"><span><svg class="icon" aria-hidden="true"><use href="#i-cloud"></use></svg>흐림</span></label>
+              <label><input type="radio" name="weather" value="rain"><span><svg class="icon" aria-hidden="true"><use href="#i-rain"></use></svg>비</span></label>
+              <label><input type="radio" name="weather" value="snow"><span><svg class="icon" aria-hidden="true"><use href="#i-snow"></use></svg>눈</span></label>
+              <label><input type="radio" name="weather" value="wind"><span><svg class="icon" aria-hidden="true"><use href="#i-wind"></use></svg>바람</span></label>
+              <button class="btn btn--ghost btn--sm" type="button" id="journal-weather-auto"><svg class="icon" aria-hidden="true"><use href="#i-locate"></use></svg>지금 날씨 불러오기</button>
+            </div>
+          </fieldset>
+          <div class="field span-2 place-field" data-place>
+            <label class="field-label" for="journal-place">장소</label>
+            <div class="input-row">
+              <input class="input" id="journal-place" name="place" data-place-input placeholder="오늘 머문 곳" role="combobox" aria-expanded="false" aria-controls="journal-place-suggest" aria-autocomplete="list">
+              <button class="btn btn--ghost btn--sm" type="button" data-place-locate><svg class="icon" aria-hidden="true"><use href="#i-locate"></use></svg>현재 위치</button>
+            </div>
+            <ul class="suggest" id="journal-place-suggest" role="listbox" data-place-suggest hidden></ul>
+            <input type="hidden" name="lat"><input type="hidden" name="lon">
+            <p class="hint" data-place-status></p>
+          </div>
+          <div class="span-2 paper-tools">
+            <label class="field"><span>글씨체</span>
+              <select class="select" name="font" id="journal-font">
+                <option value="noto-serif">본명조</option>
+                <option value="nanum-myeongjo">나눔명조</option>
+                <option value="gowun-batang">고운바탕</option>
+                <option value="gowun-dodum">고운돋움</option>
+                <option value="pen-script">나눔손글씨 펜</option>
+                <option value="gaegu">개구</option>
+              </select>
+            </label>
+            <label class="field"><span>글자 크기 <output id="journal-size-out">18</output>px</span>
+              <input type="range" name="size" id="journal-size" min="14" max="32" step="1" value="18">
+            </label>
+          </div>
+          <label class="field span-2"><span class="sr-only">내용</span>
+            <textarea class="paper" name="content" id="journal-content" rows="12" placeholder="오늘은 어떤 하루였나요?" required></textarea>
+          </label>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn--danger btn--sm" type="button" id="journal-delete" hidden>삭제</button>
+        <span class="spacer"></span>
+        <button class="btn btn--ghost btn--sm" type="button" data-close>취소</button>
+        <button class="btn btn--primary btn--sm" type="submit">저장</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- 일기 읽기 -->
+  <dialog class="modal modal--wide" id="dlg-journal-view" aria-labelledby="jv-title">
+    <div class="modal-head">
+      <h2 id="jv-title">일기</h2>
+      <button class="icon-btn" type="button" data-close aria-label="닫기"><svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg></button>
+    </div>
+    <div class="modal-body" id="jv-body"></div>
+    <div class="modal-foot">
+      <button class="btn btn--danger btn--sm" type="button" id="jv-delete">삭제</button>
+      <span class="spacer"></span>
+      <button class="btn btn--primary btn--sm" type="button" id="jv-edit">수정하기</button>
+    </div>
+  </dialog>
+
+  <!-- 책 -->
+  <dialog class="modal" id="dlg-book" aria-labelledby="book-dlg-title">
+    <form id="book-form" class="modal-form" autocomplete="off" novalidate>
+      <div class="modal-head">
+        <h2 id="book-dlg-title">책 기록하기</h2>
+        <button class="icon-btn" type="button" data-close aria-label="닫기"><svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" name="id"><input type="hidden" name="coverId"><input type="hidden" name="olKey">
+        <div class="form-grid">
+          <label class="field span-2"><span>책 제목</span><input class="input" name="title" maxlength="100" required></label>
+          <label class="field"><span>저자</span><input class="input" name="author" maxlength="60"></label>
+          <label class="field"><span>장르</span><select class="select" name="genre" id="book-form-genre"></select></label>
+          <fieldset class="field span-2">
+            <legend class="field-label">상태</legend>
+            <div class="segmented-radio">
+              <label><input type="radio" name="status" value="read" checked><span>읽은 책</span></label>
+              <label><input type="radio" name="status" value="wish"><span>읽고 싶은 책</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="field" data-read-only>
+            <legend class="field-label">별점</legend>
+            <div class="star-input">
+              <input type="radio" id="rate-5" name="rating" value="5"><label for="rate-5" title="5점"><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><span class="sr-only">5점</span></label>
+              <input type="radio" id="rate-4" name="rating" value="4" checked><label for="rate-4" title="4점"><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><span class="sr-only">4점</span></label>
+              <input type="radio" id="rate-3" name="rating" value="3"><label for="rate-3" title="3점"><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><span class="sr-only">3점</span></label>
+              <input type="radio" id="rate-2" name="rating" value="2"><label for="rate-2" title="2점"><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><span class="sr-only">2점</span></label>
+              <input type="radio" id="rate-1" name="rating" value="1"><label for="rate-1" title="1점"><svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg><span class="sr-only">1점</span></label>
+            </div>
+          </fieldset>
+          <label class="field" data-read-only><span>읽은 날짜</span><input class="input" type="date" name="readDate"></label>
+          <label class="field span-2"><span>한줄평</span><input class="input" name="review" maxlength="80" placeholder="이 책을 한 문장으로 남긴다면"></label>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn--danger btn--sm" type="button" id="book-delete" hidden>삭제</button>
+        <span class="spacer"></span>
+        <button class="btn btn--ghost btn--sm" type="button" data-close>취소</button>
+        <button class="btn btn--primary btn--sm" type="submit">저장</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- 여행 -->
+  <dialog class="modal" id="dlg-trip" aria-labelledby="trip-dlg-title">
+    <form id="trip-form" class="modal-form" autocomplete="off" novalidate>
+      <div class="modal-head">
+        <h2 id="trip-dlg-title">버킷리스트 추가</h2>
+        <button class="icon-btn" type="button" data-close aria-label="닫기"><svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" name="id">
+        <div class="form-grid">
+          <label class="field span-2"><span>가고 싶은 나라</span>
+            <input class="input" name="country" list="country-options" required placeholder="예) 프랑스">
+            <datalist id="country-options"></datalist>
+          </label>
+          <label class="field"><span>우선순위</span>
+            <select class="select" name="priority">
+              <option value="1">1순위 · 꼭 가고 싶어요</option>
+              <option value="2" selected>2순위 · 언젠가는</option>
+              <option value="3">3순위 · 기회가 된다면</option>
+            </select>
+          </label>
+          <label class="field"><span>계획 시기</span><input class="input" type="month" name="period"></label>
+          <label class="field span-2"><span>메모</span><textarea class="textarea" name="memo" rows="3" maxlength="300" placeholder="하고 싶은 일, 가고 싶은 도시, 먹고 싶은 음식"></textarea></label>
+          <label class="switch span-2"><input type="checkbox" name="visited">다녀왔어요</label>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn--danger btn--sm" type="button" id="trip-delete" hidden>삭제</button>
+        <span class="spacer"></span>
+        <button class="btn btn--ghost btn--sm" type="button" data-close>취소</button>
+        <button class="btn btn--primary btn--sm" type="submit">저장</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- 레시피 쓰기 -->
+  <dialog class="modal modal--wide" id="dlg-recipe" aria-labelledby="recipe-dlg-title">
+    <form id="recipe-form" class="modal-form" autocomplete="off" novalidate>
+      <div class="modal-head">
+        <h2 id="recipe-dlg-title">새 레시피</h2>
+        <button class="icon-btn" type="button" data-close aria-label="닫기"><svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" name="id">
+        <div class="form-grid recipe-meta">
+          <label class="field span-2"><span>요리 이름</span><input class="input" name="name" maxlength="60" required placeholder="예) 엄마표 된장찌개"></label>
+          <label class="field"><span>분류</span>
+            <select class="select" name="category" id="recipe-form-cat"></select>
+          </label>
+          <div class="form-grid inner">
+            <label class="field"><span>인분</span><input class="input" type="number" name="servings" min="1" max="20" value="2"></label>
+            <label class="field"><span>조리 시간(분)</span><input class="input" type="number" name="time" min="0" max="600" value="30"></label>
+          </div>
+        </div>
+
+        <h3 class="form-section">재료 <small>재료를 고르고 용량을 정하면 영양 정보가 바로 계산돼요</small></h3>
+        <div class="ing-picker">
+          <div class="field ing-name place-field">
+            <label class="field-label" for="ing-q">재료</label>
+            <input class="input" id="ing-q" placeholder="재료 검색 (예: 달걀, 양파, 간장)" role="combobox" aria-expanded="false" aria-controls="ing-suggest" aria-autocomplete="list">
+            <ul class="suggest" id="ing-suggest" role="listbox" hidden></ul>
+          </div>
+          <label class="field ing-amount"><span>용량</span><input class="input" type="number" id="ing-amount" min="0" step="any" value="100"></label>
+          <label class="field ing-unit"><span>단위</span><select class="select" id="ing-unit"><option value="g">g</option></select></label>
+          <button class="btn btn--accent btn--sm" type="button" id="ing-add"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg>재료 추가</button>
+        </div>
+        <div class="nutri-preview" id="ing-preview" aria-live="polite"></div>
+
+        <div class="table-wrap">
+          <table class="ing-table">
+            <thead><tr><th scope="col">재료</th><th scope="col">용량</th><th scope="col">열량</th><th scope="col">탄수화물</th><th scope="col">단백질</th><th scope="col">지방</th><th scope="col">나트륨</th><th scope="col"><span class="sr-only">삭제</span></th></tr></thead>
+            <tbody id="ing-rows"></tbody>
+          </table>
+        </div>
+        <div class="nutri-total" id="nutri-total"></div>
+
+        <h3 class="form-section">조리 순서</h3>
+        <ol class="step-list" id="step-list"></ol>
+        <button class="btn btn--ghost btn--sm" type="button" id="step-add"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg>단계 추가</button>
+
+        <label class="field" style="margin-top:28px"><span>메모</span><textarea class="textarea" name="memo" rows="2" maxlength="300" placeholder="맛을 내는 비법, 곁들이면 좋은 음식"></textarea></label>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn--danger btn--sm" type="button" id="recipe-delete" hidden>삭제</button>
+        <span class="spacer"></span>
+        <button class="btn btn--ghost btn--sm" type="button" data-close>취소</button>
+        <button class="btn btn--primary btn--sm" type="submit">저장</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- 레시피 보기 -->
+  <dialog class="modal modal--wide" id="dlg-recipe-view" aria-labelledby="rv-title">
+    <div class="modal-head">
+      <h2 id="rv-title">레시피</h2>
+      <button class="icon-btn" type="button" data-close aria-label="닫기"><svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg></button>
+    </div>
+    <div class="modal-body" id="rv-body"></div>
+    <div class="modal-foot">
+      <button class="btn btn--danger btn--sm" type="button" id="rv-delete">삭제</button>
+      <span class="spacer"></span>
+      <button class="btn btn--primary btn--sm" type="button" id="rv-edit">수정하기</button>
+    </div>
+  </dialog>
+
+  <noscript><p style="padding:24px;text-align:center">인생메모의 노트 기능을 사용하려면 자바스크립트를 켜 주세요.</p></noscript>
+
+  <script src="js/core.js" defer></script>
+  <script src="js/data/countries.js" defer></script>
+  <script src="js/data/ingredients.js" defer></script>
+  <script src="js/note/agenda.js" defer></script>
+  <script src="js/note/todo.js" defer></script>
+  <script src="js/note/journal.js" defer></script>
+  <script src="js/note/library.js" defer></script>
+  <script src="js/note/voyage.js" defer></script>
+  <script src="js/note/cuisine.js" defer></script>
+  <script src="js/note/main.js" defer></script>
+</body>
+</html>

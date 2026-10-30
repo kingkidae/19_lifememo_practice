@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>발견 | 실시간 날씨·미세먼지, 장르별 도서 추천, 세계 여행 지도 — 인생메모</title>
+  <meta name="description" content="내 위치의 실시간 날씨와 미세먼지, 7일 예보, 장르별 추천 도서, 다녀온 나라와 도시를 칠하는 세계 여행 지도까지. 인생메모의 발견 페이지에서 오늘의 정보를 노트에 담아 보세요.">
+  <meta name="keywords" content="오늘 날씨, 미세먼지, 주간 날씨, 도서 추천, 장르별 책 추천, 세계 여행 지도, 다녀온 나라 지도, 여행 기록">
+  <meta name="author" content="인생메모">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#f37021">
+  <link rel="canonical" href="https://lifememo.example.com/discover.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="인생메모">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:title" content="발견 — 오늘의 날씨, 다음에 읽을 책, 내가 다녀온 세계 | 인생메모">
+  <meta property="og:description" content="실시간 날씨·미세먼지, 장르별 도서 추천, 다녀온 나라와 도시를 칠하는 세계 지도.">
+  <meta property="og:url" content="https://lifememo.example.com/discover.html">
+  <meta property="og:image" content="https://lifememo.example.com/assets/img/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="오렌지색 노트 위에 적힌 인생메모 로고">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="발견 — 오늘의 날씨, 다음에 읽을 책, 내가 다녀온 세계 | 인생메모">
+  <meta name="twitter:description" content="실시간 날씨·미세먼지, 장르별 도서 추천, 다녀온 나라와 도시를 칠하는 세계 지도.">
+  <meta name="twitter:image" content="https://lifememo.example.com/assets/img/og-image.png">
+
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://api.open-meteo.com" crossorigin>
+  <link rel="preconnect" href="https://openlibrary.org" crossorigin>
+  <link rel="preconnect" href="https://covers.openlibrary.org">
+  <link rel="preconnect" href="https://server.arcgisonline.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;500&display=swap">
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/discover.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://lifememo.example.com/discover.html#webpage",
+        "url": "https://lifememo.example.com/discover.html",
+        "name": "발견 — 실시간 날씨, 장르별 도서 추천, 세계 여행 지도",
+        "description": "내 위치의 실시간 날씨와 미세먼지, 7일 예보, 장르별 추천 도서, 다녀온 나라와 도시를 칠하는 세계 여행 지도.",
+        "inLanguage": "ko-KR",
+        "isPartOf": { "@id": "https://lifememo.example.com/#website" },
+        "hasPart": [
+          { "@type": "WebPageElement", "name": "오늘의 날씨", "url": "https://lifememo.example.com/discover.html#weather" },
+          { "@type": "WebPageElement", "name": "장르별 도서 추천", "url": "https://lifememo.example.com/discover.html#books" },
+          { "@type": "WebPageElement", "name": "세계 여행 지도", "url": "https://lifememo.example.com/discover.html#voyage-map" }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "인생메모", "item": "https://lifememo.example.com/" },
+          { "@type": "ListItem", "position": 2, "name": "발견", "item": "https://lifememo.example.com/discover.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="1"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6.5C10 5 7 4.5 3.5 5v13.5c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5z"/><path d="M12 6.5V20"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.5 3.5 5.5 3.5 8.5s-1 6-3.5 8.5c-2.5-2.5-3.5-5.5-3.5-8.5s1-6 3.5-8.5z"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 7h15M9.5 7V4.5h5V7M6.5 7l1 13h9l1-13M10.5 11v5M13.5 11v5"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></symbol>
+    <symbol id="i-locate" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="m12 2.8 2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.5A8 8 0 0 1 9.5 4.5a8 8 0 1 0 10 10z"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18.5h10.5a4 4 0 0 0 .3-8A6 6 0 0 0 6.3 11 3.8 3.8 0 0 0 7 18.5z"/></symbol>
+    <symbol id="i-cloud-sun" viewBox="0 0 24 24"><path d="M8.6 8.2a3.5 3.5 0 0 1 6-1.7M9 2.5V4M3.5 8H5M5 4.3l1 1"/><path d="M8 20h9.5a3.5 3.5 0 0 0 .3-7 5.2 5.2 0 0 0-9.9.6A3.2 3.2 0 0 0 8 20z"/></symbol>
+    <symbol id="i-fog" viewBox="0 0 24 24"><path d="M7 12.5h10.5a3.6 3.6 0 0 0 .3-7.2 5.5 5.5 0 0 0-10.6.6A3.3 3.3 0 0 0 7 12.5zM4 16h16M6 19.5h12"/></symbol>
+    <symbol id="i-drizzle" viewBox="0 0 24 24"><path d="M7 14.5h10.5a3.8 3.8 0 0 0 .3-7.5A5.8 5.8 0 0 0 6.6 8 3.5 3.5 0 0 0 7 14.5z"/><path d="M8.5 17.5v1M12 19v1M15.5 17.5v1"/></symbol>
+    <symbol id="i-rain" viewBox="0 0 24 24"><path d="M7 14.5h10.5a3.8 3.8 0 0 0 .3-7.5A5.8 5.8 0 0 0 6.6 8 3.5 3.5 0 0 0 7 14.5z"/><path d="m9 17-1 3.5M12.5 17l-1 3.5M16 17l-1 3.5"/></symbol>
+    <symbol id="i-snow" viewBox="0 0 24 24"><path d="M7 14.5h10.5a3.8 3.8 0 0 0 .3-7.5A5.8 5.8 0 0 0 6.6 8 3.5 3.5 0 0 0 7 14.5z"/><path d="M8.5 17.5v3M7 19h3M15.5 17.5v3M14 19h3"/></symbol>
+    <symbol id="i-storm" viewBox="0 0 24 24"><path d="M7 14.5h10.5a3.8 3.8 0 0 0 .3-7.5A5.8 5.8 0 0 0 6.6 8 3.5 3.5 0 0 0 7 14.5z"/><path d="M12.5 15.5 10.5 19h3l-2 3.5"/></symbol>
+    <symbol id="i-wind" viewBox="0 0 24 24"><path d="M3 8.5h11a2.5 2.5 0 1 0-2.5-2.5M3 12.5h15a2.5 2.5 0 1 1-2.5 2.5M3 16.5h7"/></symbol>
+    <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3.5s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></symbol>
+    <symbol id="i-sunrise" viewBox="0 0 24 24"><path d="M4 18h16M7.5 18a4.5 4.5 0 0 1 9 0M12 4v6M9 7l3-3 3 3M4.5 12.5l1.5 1M19.5 12.5l-1.5 1"/></symbol>
+    <symbol id="i-sunset" viewBox="0 0 24 24"><path d="M4 18h16M7.5 18a4.5 4.5 0 0 1 9 0M12 10V4M9 7l3 3 3-3M4.5 12.5l1.5 1M19.5 12.5l-1.5 1"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5.5H4.5V6H10"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3.5h12v17l-6-4-6 4z"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3M19.5 4v4h-4"/></symbol>
+  </svg>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="./" aria-label="인생메모 홈">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="3" width="22" height="26" fill="#f37021"/><rect x="5" y="3" width="3.5" height="26" fill="#1c1714" opacity=".16"/><path d="M20 3v12l2.5-2.2L25 15V3z" fill="#5b3a29"/></svg>
+        <span class="brand-text"><span class="brand-name">인생메모</span><span class="brand-sub">Life Memo</span></span>
+      </a>
+      <nav class="site-nav" aria-label="주요 메뉴">
+        <ul>
+          <li><a href="./"><small>Note</small>나의 노트</a></li>
+          <li><a href="discover.html" aria-current="page"><small>Discover</small>발견</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="d-hero" aria-labelledby="d-title">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="현재 위치"><ol><li><a href="./">인생메모</a></li><li aria-current="page">발견</li></ol></nav>
+        <p class="eyebrow">Discover</p>
+        <h1 id="d-title" class="d-title">오늘의 세계를<br>노트에 담다.</h1>
+        <p class="hero-lead">실시간 날씨와 미세먼지, 다음에 읽을 책, 그리고 내가 다녀온 세계까지.<br>살아 있는 정보를 받아 와 나의 노트와 이어 드려요.</p>
+        <ol class="d-index">
+          <li><a href="#weather"><span>01</span>오늘의 날씨</a></li>
+          <li><a href="#books"><span>02</span>장르별 도서 추천</a></li>
+          <li><a href="#voyage-map"><span>03</span>세계 여행 지도</a></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ 01 Weather ============ -->
+    <section class="section" id="weather" aria-labelledby="weather-title">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">01 · Weather</p>
+            <h2 id="weather-title">오늘의 날씨</h2>
+            <p class="desc">현재 위치나 원하는 도시의 실시간 날씨, 미세먼지, 시간별·주간 예보를 확인하세요. 일정에 장소를 적어 두면 아래에서 그날의 날씨도 함께 보여드려요.</p>
+          </div>
+          <div class="w-location place-field" data-place>
+            <label class="field-label" for="w-place">지역 검색</label>
+            <div class="input-row">
+              <input class="input" id="w-place" data-place-input placeholder="예) 부산, 파리, 도쿄" role="combobox" aria-expanded="false" aria-controls="w-place-suggest" aria-autocomplete="list">
+              <button class="btn btn--ghost btn--sm" type="button" data-place-locate><svg class="icon" aria-hidden="true"><use href="#i-locate"></use></svg>현재 위치</button>
+            </div>
+            <ul class="suggest" id="w-place-suggest" role="listbox" data-place-suggest hidden></ul>
+            <input type="hidden" name="lat"><input type="hidden" name="lon">
+            <p class="hint" data-place-status></p>
+          </div>
+        </div>
+
+        <div class="weather-grid" id="weather-root" aria-live="polite" aria-busy="true">
+          <article class="w-now card">
+            <div class="skeleton" style="height:100%;min-height:320px"></div>
+          </article>
+          <div class="w-side">
+            <div class="w-hourly card"><div class="skeleton" style="height:140px"></div></div>
+            <div class="w-week card"><div class="skeleton" style="height:260px"></div></div>
+          </div>
+        </div>
+
+        <div class="w-schedule">
+          <h3 class="w-sub">다가오는 일정의 날씨 <a class="link-arrow" href="./#agenda">일정 관리로 가기 <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a></h3>
+          <ul class="w-sched-list" id="w-schedule"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 02 Books ============ -->
+    <section class="section section--tint" id="books" aria-labelledby="books-title">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">02 · Library</p>
+            <h2 id="books-title">장르별 도서 추천</h2>
+            <p class="desc">장르를 고르면 Open Library에서 평점이 높은 책을 추천해 드려요. 마음에 드는 책은 '서재에 담기'로 독서 기록장에 바로 옮길 수 있어요.</p>
+          </div>
+          <label class="switch"><input type="checkbox" id="book-ko" checked>한국어판이 있는 책만</label>
+        </div>
+        <div class="chips genre-chips" id="genre-chips" role="group" aria-label="장르 선택"></div>
+        <p class="book-status" id="book-result-info" aria-live="polite"></p>
+        <ul class="rec-grid" id="rec-grid"></ul>
+        <div class="more-wrap"><button class="btn" type="button" id="rec-more" hidden>추천 더 보기</button></div>
+      </div>
+    </section>
+
+    <!-- ============ 03 Map ============ -->
+    <section class="section" id="voyage-map" aria-labelledby="map-title">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">03 · Voyage</p>
+            <h2 id="map-title">세계 여행 지도</h2>
+            <p class="desc">지도를 눌러 다녀온 나라를 오렌지색으로 칠해 보세요. 지도를 5단계 이상 확대하면 도시 단위로 다녀온 곳을 찍을 수 있어요. 기록은 여행 버킷리스트와 함께 저장돼요.</p>
+          </div>
+          <a class="link-arrow" href="./#voyage">버킷리스트 보기 <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a>
+        </div>
+
+        <div class="map-layout">
+          <div class="map-frame">
+            <div id="map" role="application" aria-label="세계 지도. 나라를 눌러 방문 여부를 표시합니다."></div>
+            <div class="map-mode" id="map-mode" aria-live="polite"></div>
+          </div>
+          <aside class="map-side" aria-label="여행 지도 정보">
+            <dl class="map-stats" id="map-stats"></dl>
+            <div class="place-field map-search">
+              <label class="field-label" for="city-q">나라·도시 찾기</label>
+              <div class="input-row">
+                <input class="input" id="city-q" placeholder="예) 이탈리아, 교토, 바르셀로나" role="combobox" aria-expanded="false" aria-controls="city-suggest" aria-autocomplete="list">
+              </div>
+              <ul class="suggest" id="city-suggest" role="listbox" hidden></ul>
+            </div>
+            <div class="country-card" id="country-card">
+              <p class="muted">지도에서 나라를 누르면 이곳에 정보가 나타나요.</p>
+            </div>
+            <div class="continents" id="continents"></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEO: 정적 설명 콘텐츠 -->
+    <section class="section section--tint" aria-labelledby="source-title">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Sources</p>
+            <h2 id="source-title">발견 페이지의 정보는 이렇게 모읍니다</h2>
+          </div>
+        </div>
+        <ul class="source-list">
+          <li><h3>날씨 · 미세먼지</h3><p>유럽 기상청(ECMWF) 등 여러 국가 기상 모델을 모은 <a href="https://open-meteo.com/" rel="noopener" target="_blank">Open-Meteo</a>에서 현재 날씨, 48시간·7일 예보, PM10·PM2.5 농도를 받아옵니다. 미세먼지 등급은 환경부 기준을 따릅니다.</p></li>
+          <li><h3>도서 추천</h3><p>인터넷 아카이브가 운영하는 열린 도서관 <a href="https://openlibrary.org/" rel="noopener" target="_blank">Open Library</a>의 주제별 도서 목록에서 평점이 높은 책을 추천합니다.</p></li>
+          <li><h3>세계 지도</h3><p>국가 경계는 퍼블릭 도메인 지도 데이터인 Natural Earth, 배경 지도는 Esri Light Gray Canvas, 나라 소개는 한국어 위키백과, 도시 위치는 BigDataCloud와 Open-Meteo 지오코딩을 사용합니다.</p></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="brand-name">인생메모</span>
+          <p>당신의 인생을 하나의 노트에 정리해드려요.</p>
+        </div>
+        <nav aria-label="바닥글 메뉴">
+          <h2>Menu</h2>
+          <ul>
+            <li><a href="./">나의 노트</a></li>
+            <li><a href="discover.html">발견 — 날씨 · 도서 추천 · 여행 지도</a></li>
+          </ul>
+        </nav>
+        <div>
+          <h2>Backup</h2>
+          <div class="chips">
+            <button class="btn btn--sm" type="button" data-backup-export>백업 내보내기</button>
+            <label class="btn btn--sm">백업 가져오기<input type="file" accept="application/json,.json" data-backup-import hidden></label>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span data-year>2026</span> 인생메모. 모든 기록은 내 브라우저에만 저장됩니다.</span>
+        <span>Open-Meteo · Open Library · Natural Earth · Esri · Wikipedia · BigDataCloud · flagcdn</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 도서 상세 -->
+  <dialog class="modal modal--wide" id="dlg-rec" aria-labelledby="rec-title">
+    <div class="modal-head">
+      <h2 id="rec-title">도서 정보</h2>
+      <button class="icon-btn" type="button" data-close aria-label="닫기"><svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg></button>
+    </div>
+    <div class="modal-body" id="rec-body"></div>
+    <div class="modal-foot">
+      <a class="btn btn--ghost btn--sm" id="rec-link" href="#" target="_blank" rel="noopener">Open Library에서 보기 <svg class="icon" aria-hidden="true"><use href="#i-external"></use></svg></a>
+      <span class="spacer"></span>
+      <button class="btn btn--primary btn--sm" type="button" id="rec-save"><svg class="icon" aria-hidden="true"><use href="#i-bookmark"></use></svg>서재에 담기</button>
+    </div>
+  </dialog>
+
+  <noscript><p style="padding:24px;text-align:center">실시간 정보를 불러오려면 자바스크립트를 켜 주세요.</p></noscript>
+
+  <script src="js/core.js" defer></script>
+  <script src="js/data/countries.js" defer></script>
+  <script src="vendor/leaflet/leaflet.js" defer></script>
+  <script src="js/data/world.js" defer></script>
+  <script src="js/discover/weather.js" defer></script>
+  <script src="js/discover/books.js" defer></script>
+  <script src="js/discover/map.js" defer></script>
+</body>
+</html>

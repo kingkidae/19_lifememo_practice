@@ -1,0 +1,15 @@
+{
+  "name": "인생메모 — 당신의 인생을 하나의 노트에",
+  "short_name": "인생메모",
+  "description": "일정, 할 일, 일기, 독서, 여행, 요리를 한 권의 노트에 정리하는 웹 다이어리",
+  "lang": "ko-KR",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fbf7f0",
+  "theme_color": "#f37021",
+  "icons": [
+    { "src": "assets/img/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "assets/img/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/img/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
