@@ -340,4 +340,22 @@ fieldset.field { border: 0; padding: 0; margin: 0; }
 .about-list p { color: var(--ink-2); margin-top: 6px; }
 @media (max-width: 860px) { .about { grid-template-columns: 1fr; } }
 
-.modal-form { display: contents; }
+/* ---------- Memory Book 홍보 ---------- */
+.promo { background: var(--orange); color: var(--ink); padding: clamp(44px, 6vw, 72px) 0; }
+.promo .container { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: clamp(24px, 4vw, 56px); }
+.promo-art { width: clamp(120px, 14vw, 180px); }
+.promo .eyebrow { color: var(--ink); opacity: .7; }
+.promo h2 { font-size: clamp(26px, 3.4vw, 40px); font-weight: 300; margin: 10px 0 12px; }
+.promo-text p:last-child { max-width: 560px; color: rgba(28, 23, 20, .82); }
+.promo-cta { display: grid; justify-items: start; gap: 10px; }
+.promo-cta span { font-size: 12.5px; color: rgba(28, 23, 20, .72); }
+.promo .btn--primary:hover { background: var(--paper); border-color: var(--paper); color: var(--ink); }
+@media (max-width: 960px) {
+  .promo .container { grid-template-columns: auto minmax(0, 1fr); }
+  .promo-cta { grid-column: 2; }
+}
+@media (max-width: 600px) {
+  .promo .container { grid-template-columns: 1fr; }
+  .promo-art { width: 120px; }
+  .promo-cta { grid-column: auto; }
+}

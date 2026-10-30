@@ -22,6 +22,7 @@ python -m http.server 5500
 | HTML·CSS·JS 사용 | 프레임워크 없이 바닐라 JS. 지도 라이브러리 Leaflet만 `vendor/`에 포함 |
 | 1페이지: 로컬스토리지 CRUD | `index.html` — 6개 챕터 모두 생성·조회·수정·삭제 (`js/core.js`의 `LM.store`) |
 | 2페이지: API로 데이터를 받아 UI 구현 | `discover.html` — 날씨·미세먼지, 장르별 도서 추천, 세계 여행 지도 |
+| (추가) 판매 페이지 | `book.html` — 1년의 기록을 종이책으로 만드는 기록책 주문 |
 | SEO 최적화 | 아래 체크리스트 참고 |
 
 ## 기능
@@ -40,6 +41,17 @@ python -m http.server 5500
 1. **오늘의 날씨**: 현재 날씨, 체감온도, 습도·바람·자외선·일출·일몰, PM10·PM2.5 등급(환경부 기준), 24시간·7일 예보, 노트에 적은 다가오는 일정의 날씨
 2. **장르별 도서 추천**: 16개 장르, 평점순, 한국어판 필터, 책 소개 상세, '서재에 담기'로 1페이지 독서 기록장에 추가
 3. **세계 여행 지도**: 나라를 눌러 방문 표시(배율 5 미만), 확대 후 지도를 눌러 도시 단위 기록(배율 5 이상), 나라·도시 검색, 위키백과 나라 소개, 대륙별 진행률. 1페이지 버킷리스트와 데이터를 공유
+
+### 3페이지 · 기록책 (`book.html`)
+> 1년간 작성한 기록을 기념하고 소장하세요.
+
+1. **에디션 3종**: 소프트커버 Daily(29,000원·80쪽), 하드커버 Classic(45,000원·120쪽), 린넨 하드커버+케이스 Heritage(79,000원·200쪽)
+2. **기록책 만들기**: 연도와 챕터를 고르면 노트에 쌓인 그 해의 기록으로 예상 페이지 수(4의 배수, 최소 24쪽)를 계산. 기본 쪽수를 넘으면 1쪽당 150원
+3. **표지 꾸미기**: 표지 색 5종, 책 제목·지은이, 금박·은박·박 없음을 고르면 표지 미리보기가 바로 바뀜
+4. **주문**: 수량(최대 10권), 배송비(5만 원 이상 무료)까지 계산하고 주문서를 `lifememo.orders`에 저장. 나의 주문 목록에서 취소 가능
+   - 결제 없이 주문 접수만 저장되는 미리보기 서비스입니다.
+
+메인 페이지에는 노트 아래에 기록책 홍보 배너를, 모든 페이지 메뉴에 '기록책'을 추가했습니다.
 
 ## 사용한 공개 API (모두 API 키 불필요)
 
@@ -72,16 +84,18 @@ python -m http.server 5500
 - 접근성: 건너뛰기 링크, ARIA 탭(키보드 ←/→), 라벨, `aria-live`, 포커스 표시, `prefers-reduced-motion`
 
 > **배포 전 할 일**: `https://lifememo.example.com`을 실제 도메인으로 모두 바꿔 주세요.
-> 해당 파일: `index.html`, `discover.html`, `robots.txt`, `sitemap.xml`
+> 해당 파일: `index.html`, `discover.html`, `book.html`, `robots.txt`, `sitemap.xml`
 
 ## 폴더 구조
 ```
 index.html            나의 노트 (로컬스토리지 CRUD)
 discover.html         발견 (API)
-css/  base.css · note.css · discover.css
+book.html             기록책 (판매)
+css/  base.css · note.css · discover.css · book.css
 js/   core.js         저장소(CRUD)·API·UI 공통 모듈
       note/           agenda · todo · journal · library · voyage · cuisine · main
       discover/       weather · books · map
+      book/           book (기록책 집계·가격·주문)
       data/           countries · world · ingredients
 vendor/leaflet/       지도 라이브러리
 assets/img/           아이콘·OG 이미지
@@ -89,4 +103,4 @@ robots.txt · sitemap.xml · manifest.webmanifest
 ```
 
 ## 로컬스토리지 키
-`lifememo.schedules` · `todos` · `diaries` · `books` · `trips` · `recipes` · `visitedCountries` · `visitedCities` · `pref.*`
+`lifememo.schedules` · `todos` · `diaries` · `books` · `trips` · `recipes` · `visitedCountries` · `visitedCities` · `orders` · `pref.*`

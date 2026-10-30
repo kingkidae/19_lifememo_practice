@@ -143,6 +143,11 @@ ul, ol { margin: 0; padding: 0; }
   .hero-art { order: -1; width: min(70%, 300px); }
 }
 
+/* ---------- Breadcrumb ---------- */
+.breadcrumb ol { list-style: none; display: flex; gap: 10px; font-size: 12.5px; color: var(--muted); margin-bottom: 36px; }
+.breadcrumb li + li::before { content: "/"; margin-right: 10px; color: var(--line-strong); }
+.breadcrumb a:hover { color: var(--ink); }
+
 /* ---------- Section heads ---------- */
 .section { padding: clamp(56px, 8vw, 104px) 0; }
 .section--tint { background: var(--paper-2); }
@@ -272,6 +277,7 @@ dialog.modal::backdrop { background: rgba(28, 23, 20, .45); backdrop-filter: blu
 .modal-body { padding: 26px 28px; overflow-y: auto; }
 .modal-foot { display: flex; align-items: center; gap: 10px; padding: 16px 28px; border-top: 1px solid var(--line); background: var(--paper-2); }
 .modal-foot .spacer { flex: 1; }
+.modal-form { display: contents; }
 @media (max-width: 600px) {
   .modal-head, .modal-body, .modal-foot { padding-inline: 18px; }
   .modal-foot { flex-wrap: wrap; }
