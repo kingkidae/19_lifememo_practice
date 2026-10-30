@@ -449,4 +449,26 @@
     const y = $('[data-year]');
     if (y) y.textContent = new Date().getFullYear();
   });
+
+  /* ---------------------------------------------------------------------
+     #해시로 들어온 경우: 위쪽 섹션이 API 응답으로 늦게 길어져도 목표 위치를 유지
+     (예: 노트의 '지도에서 체크하기' → discover.html#voyage-map)
+     탭 패널 해시(#agenda 등)는 노트 페이지의 main.js가 처리합니다.
+     --------------------------------------------------------------------- */
+  document.addEventListener('DOMContentLoaded', () => {
+    const id = decodeURIComponent(location.hash.slice(1));
+    const target = id && document.getElementById(id);
+    if (!target || target.getAttribute('role') === 'tabpanel' || !('ResizeObserver' in window)) return;
+
+    const align = () => target.scrollIntoView({ block: 'start', behavior: 'instant' });
+    const ro = new ResizeObserver(align);
+    const stop = () => {
+      ro.disconnect();
+      ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach((t) => window.removeEventListener(t, stop));
+    };
+    // 사용자가 직접 스크롤하기 시작하면 더 이상 끌어당기지 않음
+    ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach((t) => window.addEventListener(t, stop, { passive: true }));
+    ro.observe(document.body);
+    setTimeout(stop, 6000);
+  });
 })();
